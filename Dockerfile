@@ -1,17 +1,21 @@
-# Use an existing base image with necessary dependencies for training
+# Use an existing base image from Docker Hub
 FROM python:3.8
 
 # Set the working directory inside the container
 WORKDIR /cicd_assignment
 
-# Copy the entire repository into the container
-COPY . .
+# Copy the requirements file into the container
+COPY requirements.txt .
 
-# Install any required dependencies (assuming they are in requirements.txt)
+# Install Python dependencies from requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Command to train the model during the build phase
-RUN python train.py
+# Copy the rest of the application code into the container
+COPY . .
 
-# Command to execute when the container starts
-CMD ["python", "test.py"]
+# Command to run when the container starts
+CMD ["python", "train.py"]
+
+
+git remote remove origin
+git remote add origin https://github.com/ravi2kavi/CICD_Assignment.git
