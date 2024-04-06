@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import Logis
 import pickle
 import numpy as np
 
