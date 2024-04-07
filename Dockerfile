@@ -15,7 +15,3 @@ COPY . .
 
 # Command to run when the container starts
 CMD ["python", "train.py"]
-
-
-git remote remove origin
-git remote add origin https://github.com/ravi2kavi/CICD_Assignment.git
