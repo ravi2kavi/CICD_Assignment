@@ -27,7 +27,8 @@ jobs:
       - name: Get score from Docker container
         run: |
           echo "SCORE=$(docker inspect -f '{{ index .Config.Labels "score" }}' ravikavi2024/cicd_assignment:latest)" >> $GITHUB_ENV
-      
+          echo "Score is: $SCORE"
+          
       - name: Check score
         run: |
           score="${{ env.SCORE }}"
