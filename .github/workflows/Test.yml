@@ -25,12 +25,12 @@ jobs:
         run: docker run --rm ravikavi2024/cicd_assignment:latest python test.py
       
       - name: Get score from Docker container
-        id: score
-        run: echo "::set-output name=score::$(docker inspect -f '{{ index .Config.Labels "score" }}' ravikavi2024/cicd_assignment:latest)"
+        run: |
+          echo "SCORE=$(docker inspect -f '{{ index .Config.Labels "score" }}' ravikavi2024/cicd_assignment:latest)" >> $GITHUB_ENV
       
       - name: Check score
         run: |
-          score=$(docker run ${{ secrets.DOCKER_HUB_USERNAME }}/diagnosis_test:latest)
+          score="${{ env.SCORE }}"
           if (( $(echo "$score > 0.35" | bc -l) )); then
             echo "Score is greater than 0.35"
           else
