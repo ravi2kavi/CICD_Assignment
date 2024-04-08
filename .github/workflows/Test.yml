@@ -30,7 +30,7 @@ jobs:
       
       - name: Check score
         run: |
-          score="${{ steps.score.outputs.score }}"
+          score=$(docker run ${{ secrets.DOCKER_HUB_USERNAME }}/diagnosis_test:latest)
           if (( $(echo "$score > 0.35" | bc -l) )); then
             echo "Score is greater than 0.35"
           else
