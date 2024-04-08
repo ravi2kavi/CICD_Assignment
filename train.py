@@ -3,7 +3,7 @@ from sklearn.linear_model import LogisticRegression
 import pickle
 import numpy as np
 
-assert False, "This script intentionally fails"
+assert False, "This script fails"
 
 df = pd.read_csv("data/train.csv")
 X = df.drop(columns=['Disease']).to_numpy()
