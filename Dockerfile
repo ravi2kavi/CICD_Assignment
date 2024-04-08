@@ -13,5 +13,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application code into the container
 COPY . .
 
+# Train the model during the build phase
+RUN python train.py
+
 # Command to run when the container starts
-CMD ["python", "train.py"]
+CMD ["python", "test.py"]
