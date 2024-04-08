@@ -29,10 +29,11 @@ jobs:
       run: echo "::set-output name=score::$(docker inspect -f '{{ index .Config.Labels "score" }}' ravikavi2024/cicd_assignment:latest)"
       
     - name: Check score
-  run: |
-    if (( $(echo "${{ steps.score.outputs.score }}" | bc -l) > 0.35 )); then
-      echo "Score is greater than 0.35"
-    else
-      echo "Score is less than or equal to 0.35"
-      exit 1;
-    fi
+      - name: Check score
+        run: |
+        if (( $(echo "${{ steps.score.outputs.score }}" | bc -l) > 0.35 )); then
+            echo "Score is greater than 0.35"
+        else
+            echo "Score is less than or equal to 0.35"
+            exit 1;
+        fi
