@@ -13,4 +13,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN python train.py
 
 # Command to run when the container starts
+
 CMD ["python", "test.py"]
+
