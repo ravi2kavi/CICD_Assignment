@@ -18,7 +18,14 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build and push Docker image
+    - name: Build Docker image
       run: |
         docker build -t ravikavi2024/cicd_assignment:latest .
-        docker push ravikavi2024/cicd_assignment:latest
+        exit_code=$?
+        if [ $exit_code -ne 0 ]; then
+          echo "Docker build failed with exit code $exit_code"
+          exit $exit_code
+        fi
+      
+    - name: Push Docker image
+      run: docker push ravikavi2024/cicd_assignment:latest
