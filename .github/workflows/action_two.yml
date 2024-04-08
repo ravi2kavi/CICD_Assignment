@@ -37,4 +37,3 @@ jobs:
             echo "Score is less than or equal to 0.35"
             exit 1
           fi
-
