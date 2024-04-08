@@ -30,9 +30,11 @@ jobs:
       
       - name: Check score
         run: |
-          if (( $(echo "${{ steps.score.outputs.score }}" | bc -l) > 0.35 )); then
-              echo "Score is greater than 0.35"
+          score="${{ steps.score.outputs.score }}"
+          if (( $(echo "$score > 0.35" | bc -l) )); then
+            echo "Score is greater than 0.35"
           else
-              echo "Score is less than or equal to 0.35"
-              exit 1
+            echo "Score is less than or equal to 0.35"
+            exit 1
           fi
+
