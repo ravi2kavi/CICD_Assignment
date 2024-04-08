@@ -2,9 +2,9 @@
 FROM python:3.11
 
 # Set the working directory inside the container
-WORKDIR /cicd_assignment
+WORKDIR /app
 
-COPY ./cicd_assignment
+COPY ./app
 
 # Install Python dependencies from requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
