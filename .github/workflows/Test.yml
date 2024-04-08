@@ -21,16 +21,22 @@ jobs:
       - name: Pull Docker image
         run: docker pull ravikavi2024/cicd_assignment:latest
       
-      - name: Run Docker container
-        run: docker run --rm ravikavi2024/cicd_assignment:latest python test.py
-      
-      - name: Get score from Docker container
+      - name: Run Docker container and capture output
+        id: run-docker
         run: |
-          echo "SCORE=$(docker inspect -f '{{ index .Config.Labels "score" }}' ravikavi2024/cicd_assignment:latest)" >> $GITHUB_ENV
-          echo "Score is: $SCORE"
+          output=$(docker run --rm ravikavi2024/cicd_assignment:latest python test.py)
+          echo "::set-output name=output::$output"
+      
+      - name: Get score from Docker output
+        id: parse-score
+        run: |
+          score=$(echo "${{ steps.run-docker.outputs.output }}" | grep -oP '(?<=SCORE: )\d+(\.\d+)?')
+          echo "::set-output name=score::$score"
+          echo "Score is: $score"
+      
       - name: Check score
         run: |
-          score="${{ env.SCORE }}"
+          score="${{ steps.parse-score.outputs.score }}"
           if (( $(echo "$score > 0.35" | bc -l) )); then
             echo "Score is greater than 0.35"
           else
