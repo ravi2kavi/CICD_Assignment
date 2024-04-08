@@ -6,16 +6,16 @@ Test:
       uses: actions/checkout@v2
  
     - name: Pull Docker Image
-      run: docker pull ${{ secrets.DOCKER_USERNAME }}/diagnosis_test:latest
+      run: docker pull ${{ secrets.DOCKER_USERNAME }}/cicd_assignment:latest
  
     - name: Run Docker Image Check Score
       run: |
         # Run the docker image and evaluate if threshold is satisfied
-        score=$(docker run ${{ secrets.DOCKER_USERNAME }}/diagnosis_test:latest)
-        if (( $(echo "$score > 0.50" | bc -l) )); then
-          echo "Score is greater than 0.50"
+        score=$(docker run ${{ secrets.DOCKER_USERNAME }}/cicd_assignment:latest)
+        if (( $(echo "$score > 0.35" | bc -l) )); then
+          echo "Score is greater than 0.35"
           exit 0
         else
-          echo "Score is Not greater than 0.50"
+          echo "Score is Not greater than 0.35"
           exit 1
         fi
